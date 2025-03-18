@@ -7,5 +7,6 @@
 2. I am taking STATS 220 because the content and skills being taught in this course looks interesting and applicable to careers in analyst roles.
 3. I am interested in learning about the R programming language and gaining more experience with HTML and CSS.
 
-A meme that captures how I currently feel about my university studies is 
+A meme that captures how I currently feel about my university studies is
+
 ![](https://media1.tenor.com/m/a6tWtYbsQxAAAAAC/man-crying-stan-twt.gif)
