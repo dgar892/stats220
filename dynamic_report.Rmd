@@ -1,0 +1,119 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+body{
+color: #000000;
+background-color: #f9fce8;
+padding: 5px;
+}
+
+h2{
+font-family: "Lucida Console", monospace;
+text-shadow: 1px 1px 1px black;
+color: blue;
+font-size: 30px;
+}
+
+h3{
+font-family: "Lucida Console", monospace;
+text-shadow: 1px 1px 1px black;
+color: blue;
+font-size: 20px;
+text-decoration: underline;
+}
+
+```
+
+## Social Media Advertisement Survey Report
+
+In the survey, a respondent was asked to answer questions regarding an advertisement they saw on social media, as well as information about themselves. The purpose of the social media advertisement survey was to get more insight into participants' social media advertisement feeds to better understand the differences between different demographics, behaviours of ad recipients, and the effect of targeted advertisement algorithms. This report contains key findings from the survey.
+
+```{r}
+library(tidyverse)
+
+# Read CSV data
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRf9xHxzULiLSRGImESf2eN_PhKR2xgO2DCQl27VL8GnlSOIFCkor2l3sBSeOyaSgr8Z4RtQg2TOv5k/pub?gid=1963981832&single=true&output=csv")
+
+# Renaming data
+latest_data <- rename(logged_data,
+                      timestamp = 1,
+                      age = 2,
+                      gender = 3,
+                      social_media_platform = 4,
+                      relevancy = 5,
+                      interact_with_ad = 6)
+
+# Generates mean of the relevancy score of ads to respondents and the number of respondents.
+mean_relevancy <- latest_data$relevancy %>% mean() %>% round(1)
+number_of_responses <- latest_data$timestamp %>% length()
+
+```
+The total number of responses in this survey is **`r number_of_responses`**.
+
+The mean relevancy score of advertisements seen on social media to respondents is **`r mean_relevancy`**.
+
+### Interaction With Advertisement
+```{r}
+library(tidyverse)
+
+# Read CSV data
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRf9xHxzULiLSRGImESf2eN_PhKR2xgO2DCQl27VL8GnlSOIFCkor2l3sBSeOyaSgr8Z4RtQg2TOv5k/pub?gid=1963981832&single=true&output=csv")
+
+# Renaming data
+latest_data <- rename(logged_data,
+                      timestamp = 1,
+                      age = 2,
+                      gender = 3,
+                      social_media_platform = 4,
+                      relevancy = 5,
+                      interact_with_ad = 6)
+
+# Generate bar graph of the respondents' interactions with ads.
+interaction <- latest_data %>%
+  ggplot() +
+    geom_bar(aes(x=interact_with_ad), fill = "#6203fc") +
+  labs(title="Interaction With Advertisement",
+       subtitle="Comparison",
+       x="Interacted with ad",
+       y="Count")
+interaction
+```
+
+This bar chart shows the interaction of advertisements from responses. Responses are either 'Yes' or 'No.' If a respondent interacted with an advertisement they viewed on social media (e.g., redirect to advertiser's website or application, contact advertiser, etc.), they selected 'Yes.' Else, they would select No.
+
+### Advertisement Relevancy
+```{r}
+library(tidyverse)
+
+# Read CSV data
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRf9xHxzULiLSRGImESf2eN_PhKR2xgO2DCQl27VL8GnlSOIFCkor2l3sBSeOyaSgr8Z4RtQg2TOv5k/pub?gid=1963981832&single=true&output=csv")
+
+# Renaming data
+latest_data <- rename(logged_data,
+                      timestamp = 1,
+                      age = 2,
+                      gender = 3,
+                      social_media_platform = 4,
+                      relevancy = 5,
+                      interact_with_ad = 6)
+
+# Generate bar graph of the relevancy of ads to respondents.
+latest_data %>%
+  ggplot() +
+    geom_bar(aes(x=relevancy), fill = "#6203fc") +
+  labs(title="Advertisement Relevancy",
+       subtitle="Comparison (1 being 'Not Relevant' and 5 being 'Very Relevant')",
+       x="Relevancy Score",
+       y="Count")
+
+```
+
+This bar chart shows the relevancy of advertisements from responses. Responses range from 1 to 5 where 1 is 'Not Relevant' and 5 is 'Very Relevant.' A respondent would rank how relevant an advertisement they saw on social media was to them.
